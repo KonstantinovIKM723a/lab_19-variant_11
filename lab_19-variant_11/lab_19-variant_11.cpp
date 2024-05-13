@@ -1,20 +1,59 @@
-// lab_19-variant_11.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+﻿#include <iostream>
+#include "windows.h"
+using namespace std;
 
-#include <iostream>
+const int N = 10;
+
+template <class T>
+T *generateNumericBasedArray(T lowValue, T highValue, int n) {
+    T *temp = new T[n];
+    for (int i = 0; i < n; i++) temp[i] = rand() % (int)(highValue - lowValue) + lowValue;
+    return temp;
+}
+
+template <class T>
+void showArray(T *a, int n) {
+    for (int i = 0; i < n; i++) cout << a[i] << " ";
+    cout << endl;
+}
+
+template <class T>
+void sortArrayFromHighToLow(T *a, int n) {
+    for (int i = 1; i < n; i++) {
+        for (int j = 0; j < i; j++) {
+            if (a[i] > a[j]) {
+                T t = a[i];
+                a[i] = a[j];
+                a[j] = t;
+            }
+        }
+    }
+}
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+    srand(time(NULL));
+
+    cout << "Масив цілих чисел: " << endl;
+    auto arrayOfInt = generateNumericBasedArray(0, 50, N);
+    showArray(arrayOfInt, N);
+    cout << "Відсортований масив: " << endl;
+    sortArrayFromHighToLow(arrayOfInt, N);
+    showArray(arrayOfInt, N);
+
+    cout << "Масив символів: " << endl;
+    auto arrayOfChar = generateNumericBasedArray('a', 'z', N);
+    showArray(arrayOfChar, N);
+    cout << "Відсортований масив: " << endl;
+    sortArrayFromHighToLow(arrayOfChar, N);
+    showArray(arrayOfChar, N);
+
+    cout << "Масив дрібних чисел: " << endl;
+    auto arrayOfFloat = generateNumericBasedArray(0.5, 50.0, N);
+    showArray(arrayOfFloat, N);
+    cout << "Відсортований масив: " << endl;
+    sortArrayFromHighToLow(arrayOfFloat, N);
+    showArray(arrayOfFloat, N);
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
